@@ -3,22 +3,6 @@
 import numpy as np
 from scipy import integrate
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-
-sigma = 10.0
-rho = 28.0
-beta = 8/3.0
-
-# initial conditions
-initial_conditions_1 = [0.0,1.2,1.05]
-# slightly perturb the coordinates
-initial_conditions_2 = [0.0,1.2+1e-5,1.05]
-
-t_span = (0,80)
-t_eval = np.linspace(t_span[0],t_span[1],10000)
-
-print(f"Trajectory 1 with initial conditions: {initial_conditions_1}")
-print(f"Trajectory 2 with initial conditions: {initial_conditions_2}")
 
 """
 Lorenz system differential equations.
@@ -35,6 +19,21 @@ def diff_lorenz(t,coords,sigma,rho,beta):
 	dydt = x*(rho-z)-y
 	dzdt = x*y-beta*z
 	return [dxdt,dydt,dzdt]
+
+sigma = 10.0
+rho = 28.0
+beta = 8/3.0
+
+# initial conditions
+initial_conditions_1 = [0.0,1.2,1.05]
+# slightly perturb the coordinates
+initial_conditions_2 = [0.0,1.2+1e-5,1.05]
+
+t_span = (0,80)
+t_eval = np.linspace(t_span[0],t_span[1],10000)
+
+print(f"Trajectory 1 with initial conditions: {initial_conditions_1}")
+print(f"Trajectory 2 with initial conditions: {initial_conditions_2}")
 
 # solving the equations using Explicit Runge-Kutta of order 5(4)
 sol1 = integrate.solve_ivp(
