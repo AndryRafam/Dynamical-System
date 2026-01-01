@@ -6,6 +6,22 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
 
+"""
+Lorenz system differential equations.
+t (float): required by solve_ivp
+coords: contains the current [x,y,z] coordinates (can be list or array)
+sigma (float): The Prandtl number.
+rho (float): The Rayleigh number.
+beta (float): The geometric factor.
+"""
+
+def diff_lorenz(t,coords,sigma,rho,beta):
+	x,y,z = coords
+	dxdt = sigma*(y-x)
+	dydt = x*(rho-z)-y
+	dzdt = x*y-beta*z
+	return [dxdt,dydt,dzdt]
+
 # define the parameters
 sigma = 10.0
 rho = 28.0
@@ -23,22 +39,6 @@ t_span = (0,80)
 
 # time points where to evaluate the solution
 t_eval = np.linspace(t_span[0], t_span[1], 10000)
-
-"""
-Lorenz system differential equations.
-t (float): required by solve_ivp
-coords: contains the current [x,y,z] coordinates (can be list or array)
-sigma (float): The Prandtl number.
-rho (float): The Rayleigh number.
-beta (float): The geometric factor.
-"""
-
-def diff_lorenz(t,coords,sigma,rho,beta):
-	x,y,z = coords
-	dxdt = sigma*(y-x)
-	dydt = x*(rho-z)-y
-	dzdt = x*y-beta*z
-	return [dxdt,dydt,dzdt]
 
 # solving the equation using Explicit Runge-Kutta of order 5(4)
 print(f"Solving Lorenz system with initial conditions: {initial_conditions} and parameters: sigma={sigma}, rho={rho}, beta={beta}")
