@@ -31,7 +31,7 @@ initial_conditions_1 = [0.0,1.2,1.05]
 initial_conditions_2 = [0.0,1.2+1e-5,1.05]
 
 t_span = (0,80)
-t_eval = np.linspace(t_span[0],t_span[1],10000)
+t_eval = np.linspace(t_span[0],t_span[1],7000)
 
 print(f"Trajectory 1 with initial conditions: {initial_conditions_1}")
 print(f"Trajectory 2 with initial conditions: {initial_conditions_2}")
@@ -64,10 +64,14 @@ if sol1.success and sol2.success:
 
 	# plotting the two trajectories
 	fig = plt.figure(figsize=(12,10))
-
+	"""
 	# 1st trajectory
-	ax = fig.add_subplot(121,projection="3d")
-	line1, = ax.plot([],[],[],lw=1,color="black",label='Trajectory 1: {}'.format(initial_conditions_1),alpha=1)
+	ax = fig.add_subplot(121,projection="3d")"""
+	
+	# Trajectory
+	ax = fig.add_subplot(111,projection="3d")
+	line1, = ax.plot([],[],[],lw=1,color="blue",label='Trajectory 1: {}'.format(initial_conditions_1),alpha=1)
+	line2, = ax.plot([],[],[],lw=1,color="red",linestyle="--",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
 	ax.set_xlim(np.min(x1), np.max(x1))
 	ax.set_ylim(np.min(y1), np.max(y1))
 	ax.set_zlim(np.min(z1), np.max(z1))
@@ -76,7 +80,7 @@ if sol1.success and sol2.success:
 	ax.set_zlabel("Z")
 	ax.legend()
 	ax.grid(True)
-
+	"""
 	# 2nd trajectory
 	ax = fig.add_subplot(122,projection="3d")
 	line2, = ax.plot([],[],[],lw=1,color="red",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
@@ -87,7 +91,7 @@ if sol1.success and sol2.success:
 	ax.set_ylabel("Y")
 	ax.set_zlabel("Z")
 	ax.legend()
-	ax.grid(True)
+	ax.grid(True)"""
 
 	ani = FuncAnimation(fig,update,frames=len(t_eval),
 		interval=1, blit=True, repeat=False)
