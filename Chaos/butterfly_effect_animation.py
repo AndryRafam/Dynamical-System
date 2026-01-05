@@ -62,14 +62,9 @@ if sol1.success and sol2.success:
 		line2.set_data_3d(x2[:num], y2[:num], z2[:num])
 		return line1, line2
 
-	# plotting the two trajectories
+	# Plotting the two trajectories at once
 	fig = plt.figure(figsize=(12,10))
-	"""
-	# 1st trajectory
-	ax = fig.add_subplot(121,projection="3d")"""
-	
-	# Trajectory
-	ax = fig.add_subplot(111,projection="3d")
+	ax = fig.add_subplot(1,1,1,projection="3d")
 	line1, = ax.plot([],[],[],lw=1,color="blue",label='Trajectory 1: {}'.format(initial_conditions_1),alpha=1)
 	line2, = ax.plot([],[],[],lw=1,color="red",linestyle="--",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
 	ax.set_xlim(np.min(x1), np.max(x1))
@@ -80,22 +75,9 @@ if sol1.success and sol2.success:
 	ax.set_zlabel("Z")
 	ax.legend()
 	ax.grid(True)
-	"""
-	# 2nd trajectory
-	ax = fig.add_subplot(122,projection="3d")
-	line2, = ax.plot([],[],[],lw=1,color="red",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
-	ax.set_xlim(np.min(x2), np.max(x2))
-	ax.set_ylim(np.min(y2), np.max(y2))
-	ax.set_zlim(np.min(z2), np.max(z2))
-	ax.set_xlabel("X")
-	ax.set_ylabel("Y")
-	ax.set_zlabel("Z")
-	ax.legend()
-	ax.grid(True)"""
-
+	
 	ani = FuncAnimation(fig,update,frames=len(t_eval),
 		interval=1, blit=True, repeat=False)
-
 	plt.show()
 
 	# euclidean distance between the two trajectories over time
