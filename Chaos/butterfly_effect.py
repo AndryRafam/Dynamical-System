@@ -60,17 +60,27 @@ if sol1.success and sol2.success:
 	fig = plt.figure(figsize=(12,10))
 
 	# 1st trajectory
-	ax = fig.add_subplot(121,projection="3d")
-	ax.plot(x1,y1,z1,lw=0.5,color="black",label='Trajectory 1: {}'.format(initial_conditions_1),alpha=1)
+	ax = fig.add_subplot(1,3,1,projection="3d")
+	ax.plot(x1,y1,z1,lw=0.5,color="blue",label='Trajectory 1: {}'.format(initial_conditions_1),alpha=1)
+	ax.set_xlabel("X")
+	ax.set_ylabel("Y")
+	ax.set_zlabel("Z")
+	ax.legend()
+	ax.grid(True)
+	
+	# 2nd trajectory
+	ax = fig.add_subplot(1,3,2,projection="3d")
+	ax.plot(x2,y2,z2,lw=0.5,color="red",linestyle="--",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
 	ax.set_xlabel("X")
 	ax.set_ylabel("Y")
 	ax.set_zlabel("Z")
 	ax.legend()
 	ax.grid(True)
 
-	# 2nd trajectory
-	ax = fig.add_subplot(122,projection="3d")
-	ax.plot(x2,y2,z2,lw=0.5,color="red",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
+	# plot together
+	ax = fig.add_subplot(1,3,3,projection="3d")
+	ax.plot(x1,y1,z1,lw=0.5,color="blue",label="Trajectory 1 : {}".format(initial_conditions_1),alpha=1)
+	ax.plot(x2,y2,z2,lw=0.5,color="red",linestyle="--",label="Trajectory 2 : {}".format(initial_conditions_2),alpha=1)
 	ax.set_xlabel("X")
 	ax.set_ylabel("Y")
 	ax.set_zlabel("Z")
@@ -97,4 +107,4 @@ else:
 	# if one or both solutions failed
 	print("One or both solvers failed.")
 	if not sol1.success: print(f"Solver 1 failed: {sol1.message}")
-	if not sol2.success: print(f"Solver 2 failed: {sol2.message}")	
+	if not sol2.success: print(f"Solver 2 failed: {sol2.message}")
