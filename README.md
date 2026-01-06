@@ -1,2 +1,3 @@
 # Dynamical System
 SIR model, Chaos, Lorenz Attractor, Butterfly effect, Lotka-Volterra, ODE, PDE ...
+This repository is extracted from the following repository: https://github.com/AndryRafam/scientific-computing
