@@ -38,7 +38,7 @@ initial_conditions = [0.0,1.2,1.05]
 t_span = (0,80)
 
 # time points where to evaluate the solution
-t_eval = np.linspace(t_span[0], t_span[1], 10000)
+t_eval = np.linspace(t_span[0], t_span[1], 7000)
 
 # solving the equation using Explicit Runge-Kutta of order 5(4)
 print(f"Solving Lorenz system with initial conditions: {initial_conditions} and parameters: sigma={sigma}, rho={rho}, beta={beta}")
@@ -53,16 +53,18 @@ solution = integrate.solve_ivp(
 if solution.success:
 	x_coords, y_coords, z_coords = solution.y
 
-	def update(num):
-		line.set_data_3d(x_coords[:num], y_coords[:num], z_coords[:num])
-		return line,
-
 	print(solution)
 
 	fig = plt.figure(figsize=(10,8))
 	ax = plt.axes(projection="3d") # add 3D subplot to the figure
 
-	line, = ax.plot([],[],[],lw=1, color="black")
+	line, = ax.plot([],[],[],lw=1,color="black")
+	point, = ax.plot([],[],[],"ro",markersize=5)
+
+	def update(num):
+		line.set_data_3d(x_coords[:num], y_coords[:num], z_coords[:num])
+		point.set_data_3d(x_coords[num:num+1], y_coords[num:num+1], z_coords[num:num+1])
+		return line, point,
 
 	ax.set_xlim(np.min(x_coords), np.max(x_coords))
 	ax.set_ylim(np.min(y_coords), np.max(y_coords))
@@ -71,7 +73,7 @@ if solution.success:
 	ax.set_xlabel("X")
 	ax.set_ylabel("Y")
 	ax.set_zlabel("Z")
-	ax.grid(True)
+	ax.grid(False)
 
 	ani = FuncAnimation(fig,update,frames=len(t_eval),
 		interval=1, blit=True, repeat=False)
