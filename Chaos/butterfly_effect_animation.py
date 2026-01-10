@@ -57,16 +57,22 @@ if sol1.success and sol2.success:
 	x1,y1,z1 = sol1.y
 	x2,y2,z2 = sol2.y
 
-	def update(num):
-		line1.set_data_3d(x1[:num], y1[:num], z1[:num])
-		line2.set_data_3d(x2[:num], y2[:num], z2[:num])
-		return line1, line2
-
 	# Plotting the two trajectories at once
 	fig = plt.figure(figsize=(12,10))
 	ax = fig.add_subplot(1,1,1,projection="3d")
-	line1, = ax.plot([],[],[],lw=1,color="blue",label='Trajectory 1: {}'.format(initial_conditions_1),alpha=1)
-	line2, = ax.plot([],[],[],lw=1,color="red",linestyle="--",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
+	
+	line1, = ax.plot([],[],[],lw=0.5,color="blue",linestyle="-",label='Trajectory 1: {}'.format(initial_conditions_1),alpha=1)
+	line2, = ax.plot([],[],[],lw=0.5,color="red",linestyle="-",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
+	point1, = ax.plot([],[],[],"bo",markersize=7)
+	point2, = ax.plot([],[],[],"ro",markersize=7)
+
+	def update(num):
+		line1.set_data_3d(x1[:num], y1[:num], z1[:num])
+		point1.set_data_3d(x1[num:num+1], y1[num:num+1], z1[num:num+1])
+		line2.set_data_3d(x2[:num], y2[:num], z2[:num])
+		point2.set_data_3d(x2[num:num+1], y2[num:num+1], z2[num:num+1])
+		return line1, point1, line2, point2
+
 	ax.set_xlim(np.min(x1), np.max(x1))
 	ax.set_ylim(np.min(y1), np.max(y1))
 	ax.set_zlim(np.min(z1), np.max(z1))
@@ -74,11 +80,11 @@ if sol1.success and sol2.success:
 	ax.set_ylabel("Y")
 	ax.set_zlabel("Z")
 	ax.legend()
-	ax.grid(True)
+	ax.grid(False)
 	
 	ani = FuncAnimation(fig,update,frames=len(t_eval),
 		interval=1, blit=True, repeat=False)
-	plt.show()
+	#ani.save('butterfly_effect.mp4', writer='ffmpeg', fps=30)
 
 	# euclidean distance between the two trajectories over time
 	euclid_dist = np.sqrt((x1-x2)**2+(y1-y2)**2+(z1-z2)**2)
