@@ -26,9 +26,9 @@ rho = 28.0
 beta = 8/3.0
 
 # initial conditions
-initial_conditions_1 = [0.0,1.2,1.05]
+initial_conditions_1 = [0,-2,0]
 # slightly perturb the coordinates
-initial_conditions_2 = [0.0,1.2+1e-5,1.05]
+initial_conditions_2 = [0,-2-1e-5,0]
 
 t_span = (0,80)
 t_eval = np.linspace(t_span[0],t_span[1],7000)
@@ -57,14 +57,26 @@ if sol1.success and sol2.success:
 	x1,y1,z1 = sol1.y
 	x2,y2,z2 = sol2.y
 
-	# Plotting the two trajectories at once
 	fig = plt.figure(figsize=(12,10))
-	ax = fig.add_subplot(1,1,1,projection="3d")
-	
+
+	# Plotting the two trajectories on the same grid
+	ax = fig.add_subplot(1,2,1,projection="3d")
+	ax.plot(x1,y1,z1,lw=0.5,color="blue",linestyle="-",label="Trajectory 1: {}".format(initial_conditions_1),alpha=1)
+	ax.plot(x2,y2,z2,lw=0.5,color="red",linestyle="--",label="Trajectory 2: {}".format(initial_conditions_2),alpha=1)
+	ax.set_xlim(np.min(x1), np.max(x1))
+	ax.set_ylim(np.min(y1), np.max(y1))
+	ax.set_zlim(np.min(z1), np.max(z1))
+	ax.set_xlabel("X")
+	ax.set_ylabel("Y")
+	ax.set_zlabel("Z")
+	ax.legend()
+	ax.grid(False)
+
+	ax = fig.add_subplot(1,2,2,projection="3d")
 	line1, = ax.plot([],[],[],lw=0.5,color="blue",linestyle="-",label='Trajectory 1: {}'.format(initial_conditions_1),alpha=1)
-	line2, = ax.plot([],[],[],lw=0.5,color="red",linestyle="-",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
-	point1, = ax.plot([],[],[],"bo",markersize=7)
-	point2, = ax.plot([],[],[],"ro",markersize=7)
+	line2, = ax.plot([],[],[],lw=0.5,color="red",linestyle="--",label='Trajectory 2: {}'.format(initial_conditions_2),alpha=1)
+	point1, = ax.plot([],[],[],"ko",markersize=5)
+	point2, = ax.plot([],[],[],"go",markersize=5)
 
 	def update(num):
 		line1.set_data_3d(x1[:num], y1[:num], z1[:num])
@@ -82,9 +94,12 @@ if sol1.success and sol2.success:
 	ax.legend()
 	ax.grid(False)
 	
+	# Animate the trajectory
 	ani = FuncAnimation(fig,update,frames=len(t_eval),
-		interval=1, blit=True, repeat=False)
+		interval=3, blit=True, repeat=False)
 	#ani.save('butterfly_effect.mp4', writer='ffmpeg', fps=30)
+
+	plt.show()
 
 	# euclidean distance between the two trajectories over time
 	euclid_dist = np.sqrt((x1-x2)**2+(y1-y2)**2+(z1-z2)**2)
