@@ -2,4 +2,13 @@
 # Dynamical System
 <h3 align="center"> Buttefly Effect </h3>
 
-![](Chaos/butterfly_effect_animation.gif)
+<table>
+  <tr>
+    <td><b>Lorenz Attractor</b></td>
+    <td><b>Butterfly Effect<b></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/AndryRafam/Dynamical-System/blob/main/Chaos/lorenz_attractor.gif"></td>
+    <td><img src="https://github.com/AndryRafam/Dynamical-System/blob/main/Chaos/butterfly_effect_animation.gif"></td>
+  </tr>
+</table>
