@@ -3,8 +3,8 @@
 
 <table>
   <tr>
-    <td><b align="center">Lorenz Attractor</b></td>
-    <td><b align="center">Butterfly Effect<b></td>
+    <td align="center"><b>Lorenz Attractor</b></td>
+    <td align="center"><b>Butterfly Effect<b></td>
   </tr>
   <tr>
     <td><img src="https://github.com/AndryRafam/Dynamical-System/blob/main/Chaos/lorenz_attractor.gif"></td>
